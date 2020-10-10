@@ -1,3 +1,3 @@
-from . import (
-    functions
+from .functions import (
+    start, point, stop
 )
