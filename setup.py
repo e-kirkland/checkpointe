@@ -15,8 +15,7 @@ LONG_DESCRIPTION = (HERE / "README.md").read_text()
 LONG_DESC_TYPE = "text/markdown"
 
 INSTALL_REQUIRES = [
-      'datetime',
-      'pytracemalloc'
+      'datetime'
 ]
 
 setup(name=PACKAGE_NAME,
