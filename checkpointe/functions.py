@@ -57,27 +57,27 @@ def point(marker=None):
 	
 	# Print marker
 	if realtime_global:
-	    # Calculate elapsed time
-	    marker_start = checkpoints_global[0][0]
-	    marker0 = checkpoints_global[-2][0]
-	    marker1 = checkpoints_global[-1][0]
-	    elapsed = marker1 - marker_start
-	    marker_time = marker1 - marker0
+		# Calculate elapsed time
+		marker_start = checkpoints_global[0][0]
+		marker0 = checkpoints_global[-2][0]
+		marker1 = checkpoints_global[-1][0]
+		elapsed = marker1 - marker_start
+		marker_time = marker1 - marker0
 	    
-	    # Compile update
-	    point_number = len(checkpoints_global) - 1
-	    if marker:
-	    	update = f"Step {point_number}: {marker} \n Time: {marker_time} / {elapsed}"
-	    else:
-	    	update = f"Step {point_number}: {marker_time} / {elapsed}"
+		# Compile update
+		point_number = len(checkpoints_global) - 1
+		if marker:
+			update = f"Step {point_number}: {marker} \n Time: {marker_time} / {elapsed}"
+		else:
+			update = f"Step {point_number}: {marker_time} / {elapsed}"
 
 		# Adding memory update if requested
 		if current:
 			update += f"\n Current memory usage: {current / 10**6}MB / Peak: {peak / 10**6}MB"
 		else:
 			pass
-	    
-	    print(update)
+	
+		print(update)
 	else:
 		pass
 		
