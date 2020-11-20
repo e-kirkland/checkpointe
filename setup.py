@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 HERE = pathlib.Path(__file__).parent
 
-VERSION = '0.2.0'
+VERSION = '0.2.1'
 PACKAGE_NAME = 'checkpointe'
 AUTHOR = 'Eddie Kirkland'
 AUTHOR_EMAIL = 'eddie@kdsolutions.co'
@@ -16,7 +16,7 @@ LONG_DESC_TYPE = "text/markdown"
 
 INSTALL_REQUIRES = [
       'datetime',
-      'tracemalloc'
+      'pytracemalloc'
 ]
 
 setup(name=PACKAGE_NAME,
