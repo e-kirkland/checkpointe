@@ -47,12 +47,15 @@ def point(marker=None):
 		else:
 			entry = (time, None, current, peak)
 
+		checkpoints_global.append(entry)
+
 	else:
 
 		if marker:
 			entry = (time, marker, None, None)
 		else:
-			entry = (time, None, None, None)		
+			entry = (time, None, None, None)
+
 		checkpoints_global.append(entry)
 	
 	# Print marker
@@ -84,8 +87,8 @@ def point(marker=None):
 def stop():
 	
 	print("")
-	print("###########################")
-	print("Checkpoint Summary")
+	print("###################################")
+	print("Checkpointe: Time Summary")
 	
 	# Set marker
 	time = dt.datetime.now()
@@ -115,20 +118,26 @@ def stop():
 
 		if memory_global:
 			tracemalloc.stop()
-			print('\n##########################################\n')
-			for n in range (1, len(checkpoints_global)):
+			print('\n###################################')
+			print('Checkpointe: Memory Summary')
+			for n in range (1, len(checkpoints_global)-1):
+				mark = checkpoints_global[n][1]
 				current = checkpoints_global[n][2]
 				peak = checkpoints_global[n][3]
 
-			if mark:
-				step = f"{n}: {mark} | Current: {current / 10**6}MB / Peak: {peak / 10**6}MB"
-			else:
-				step = f"{n}: Current: {current / 10**6}MB / Peak: {peak / 10**6}MB"
+				if mark:
+					step = f"{n}: {mark} | Current: {current / 10**6}MB / Peak: {peak / 10**6}MB"
+				else:
+					step = f"{n}: Current: {current / 10**6}MB / Peak: {peak / 10**6}MB"
 
-			print(step)
+				print(step)
+
+		else:
+			pass
 			
 	else:
 		pass
 
+	print('\n###################################')
 	print("PROCESS COMPLETE")			
 	print(f"TOTAL RUN TIME: {elapsed}")

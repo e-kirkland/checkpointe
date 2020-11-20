@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 HERE = pathlib.Path(__file__).parent
 
-VERSION = '0.2.4'
+VERSION = '0.2.5'
 PACKAGE_NAME = 'checkpointe'
 AUTHOR = 'Eddie Kirkland'
 AUTHOR_EMAIL = 'eddie@kdsolutions.co'
