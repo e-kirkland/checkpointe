@@ -1,20 +1,29 @@
 import datetime as dt
+import tracemalloc
 
-def start(summary=True, verbose=False):
+def start(summary=True, verbose=False, memory=False):
 	
 	# Set global variables
 	global checkpoints_global
 	global report_global
 	global realtime_global
+	global memory_global
 	checkpoints_global = []
 	report_global = summary
 	realtime_global = verbose
+	memory_global = memory
 	
 	# Set marker
 	time = dt.datetime.now()
 	marker = "Process Start"
 	entry = (time, marker)
 	checkpoints_global.append(entry)
+
+	# Tracking memory if enabled
+	if memory_global:
+		tracemalloc.start()
+	else:
+		pass
 	
 	# Print marker
 	if realtime_global:
@@ -27,11 +36,24 @@ def point(marker=None):
 	
 	# Set marker
 	time = dt.datetime.now()
-	if marker:
-		entry = (time, marker)
+
+	# Capture memory usage
+	if memory_global:
+
+		current, peak = tracemalloc.get_traced_memory()
+
+		if marker:
+			entry = (time, marker, current, peak)
+		else:
+			entry = (time, None, current, peak)
+
 	else:
-		entry = (time, None)		
-	checkpoints_global.append(entry)
+
+		if marker:
+			entry = (time, marker, None, None)
+		else:
+			entry = (time, None, None, None)		
+		checkpoints_global.append(entry)
 	
 	# Print marker
 	if realtime_global:
@@ -48,6 +70,12 @@ def point(marker=None):
 	    	update = f"Step {point_number}: {marker} \n Time: {marker_time} / {elapsed}"
 	    else:
 	    	update = f"Step {point_number}: {marker_time} / {elapsed}"
+
+		# Adding memory update if requested
+		if current:
+			update += f"\n Current memory usage: {current / 10**6}MB / Peak: {peak / 10**6}MB"
+		else:
+			pass
 	    
 	    print(update)
 	else:
@@ -83,6 +111,20 @@ def stop():
 			else:
 				step = f"{n}: {time} / {elapsed}"
 				
+			print(step)
+
+		if memory_global:
+			tracemalloc.stop()
+			print('\n##########################################\n')
+			for n in range (1, len(checkpoints_global)):
+				current = checkpoints_global[n][2]
+				peak = checkpoints_global[n][3]
+
+			if mark:
+				step = f"{n}: {mark} | Current: {current / 10**6}MB / Peak: {peak / 10**6}MB"
+			else:
+				step = f"{n}: Current: {current / 10**6}MB / Peak: {peak / 10**6}MB"
+
 			print(step)
 			
 	else:

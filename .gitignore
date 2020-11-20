@@ -3,3 +3,4 @@ dist
 build
 build_deploy.sh
 *.pyc
+checkpointe/__pycache__
