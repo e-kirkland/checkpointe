@@ -75,7 +75,7 @@ def point(marker=None):
 			update = f"Step {point_number}: {marker_time} / {elapsed}"
 
 		# Adding memory update if requested
-		if current:
+		if memory_global:
 			update += f"\n Current memory usage: {current / 10**6}MB / Peak: {peak / 10**6}MB"
 		else:
 			pass
